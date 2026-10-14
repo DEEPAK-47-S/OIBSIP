@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Auth System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h2>Create Account</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required placeholder="Choose a username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required placeholder="Create a password">
+                <small class="hint">Minimum 8 characters, at least 1 number.</small>
+            </div>
+            <div id="registerError" class="error-msg"></div>
+            <div id="registerSuccess" class="success-msg"></div>
+            <button type="submit" class="btn">Register</button>
+        </form>
+        <p class="switch-link">Already have an account? <a href="index.html">Login here</a></p>
+    </div>
+    <script src="auth.js"></script>
+    <script>
+        if (localStorage.getItem('currentUser')) {
+            window.location.href = 'dashboard.html';
+        }
+        
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('registerError');
+            const successDiv = document.getElementById('registerSuccess');
+            
+            errorDiv.textContent = '';
+            successDiv.textContent = '';
+            
+            if(!username || !password) {
+                errorDiv.textContent = 'All fields are required.';
+                return;
+            }
+            
+            if(password.length < 8 || !/\d/.test(password)) {
+                errorDiv.textContent = 'Password must be at least 8 characters long and contain at least one number.';
+                return;
+            }
+            
+            const users = JSON.parse(localStorage.getItem('auth_users')) || {};
+            
+            if (users[username]) {
+                errorDiv.textContent = 'Username already exists. Please choose another.';
+                return;
+            }
+            
+            const hashedPassword = await hashPassword(password);
+            
+            users[username] = {
+                username: username,
+                password: hashedPassword,
+                createdAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem('auth_users', JSON.stringify(users));
+            
+            successDiv.textContent = 'Registration successful! Redirecting to login...';
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
