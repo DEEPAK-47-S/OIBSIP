@@ -1,0 +1,120 @@
+:root {
+    --bg-color: #f0f2f5;
+    --calc-bg: #22252d;
+    --keypad-bg: #292d36;
+    --display-bg: #22252d;
+    --text-main: #ffffff;
+    --text-muted: #a5a5a5;
+    --btn-bg: #272b33;
+    --btn-hover: #3a3f4b;
+    --operator-color: #ea6c6b;
+    --equals-bg: #26e2a2;
+    --equals-hover: #1fbe87;
+    --clear-color: #26e2a2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.calculator-container {
+    padding: 20px;
+}
+
+.calculator {
+    background-color: var(--calc-bg);
+    width: 320px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.display {
+    background-color: var(--display-bg);
+    padding: 30px 20px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 120px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.previous-operand {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    min-height: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.current-operand {
+    color: var(--text-main);
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.keypad {
+    background-color: var(--keypad-bg);
+    padding: 20px;
+    border-radius: 30px 30px 20px 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    border: none;
+    background-color: var(--btn-bg);
+    color: var(--text-main);
+    font-size: 1.5rem;
+    padding: 15px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.btn:hover {
+    background-color: var(--btn-hover);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.span-2 {
+    grid-column: span 2;
+}
+
+.operator {
+    color: var(--operator-color);
+    background-color: #2a2d37;
+}
+
+.clear {
+    color: var(--clear-color);
+}
+
+.equals {
+    background-color: var(--equals-bg);
+    color: #1a1b20;
+    font-weight: bold;
+}
+
+.equals:hover {
+    background-color: var(--equals-hover);
+}
